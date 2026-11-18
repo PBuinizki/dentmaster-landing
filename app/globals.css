@@ -1,0 +1,320 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------
+   Design tokens. Single source of truth for the palette.
+   Values are RGB channels so Tailwind opacity modifiers keep working.
+------------------------------------------------------------------- */
+:root {
+  --canvas: 250 249 247; /* тёплый off-white */
+  --surface: 255 255 255;
+  --ink: 15 23 42; /* глубокий графит */
+  --ink-soft: 51 65 85;
+  --muted: 100 116 139;
+  --line: 231 225 216; /* песочный hairline */
+  --sand: 231 225 216;
+  --sand-deep: 209 196 178;
+  --mint: 168 213 186;
+  --mint-soft: 228 241 233;
+  --forest: 26 61 54;
+  --forest-deep: 13 36 32;
+  --amber: 190 148 61;
+  --danger: 180 35 24;
+
+  --header-height: 5rem;
+  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  * {
+    @apply border-line;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    overflow-x: clip;
+    max-width: 100%;
+  }
+
+  body {
+    @apply bg-canvas font-sans text-body text-ink-soft antialiased;
+    /* Горизонтальная прокрутка запрещена: только вертикальная */
+    overflow-x: clip;
+    max-width: 100%;
+    min-height: 100dvh;
+    font-feature-settings:
+      'ss01' 1,
+      'cv11' 1;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Страховка от «выпирающей» вёрстки в мобильных браузерах */
+  @supports (overflow: clip) {
+    html,
+    body {
+      overflow-x: clip;
+    }
+  }
+
+  img,
+  svg,
+  video,
+  canvas {
+    max-width: 100%;
+  }
+
+  /* На узких экранах тело текста чуть компактнее — меньше «рваных» строк */
+  @media (max-width: 400px) {
+    body {
+      font-size: 1rem;
+      line-height: 1.65;
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: rgb(var(--ink));
+    font-family: var(--font-display);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: rgb(var(--mint) / 0.55);
+    color: rgb(var(--ink));
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--forest));
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  section[id] {
+    scroll-margin-top: calc(var(--header-height) + 1.5rem);
+  }
+
+  input,
+  textarea,
+  button,
+  select {
+    font: inherit;
+  }
+
+  /* Тонкий, спокойный скроллбар — деталь, которую замечают. */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(var(--sand-deep)) transparent;
+  }
+
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: rgb(var(--sand-deep));
+    border: 3px solid rgb(var(--canvas));
+    border-radius: 999px;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-[80rem] px-5 sm:px-8 lg:px-12;
+  }
+
+  /* Комфортный воздух: на мобильных — умеренный, на десктопе — щедрый */
+  .section {
+    @apply py-16 sm:py-20 md:py-24 lg:py-32 xl:py-36;
+  }
+
+  .display {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 6vw, 5.4rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    overflow-wrap: break-word;
+  }
+
+  .h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.6875rem, 4.2vw, 3.5rem);
+    font-weight: 500;
+    line-height: 1.06;
+    letter-spacing: -0.035em;
+    overflow-wrap: break-word;
+  }
+
+  .h3 {
+    font-family: var(--font-display);
+    font-size: clamp(1.1875rem, 2vw, 1.5rem);
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.025em;
+    overflow-wrap: break-word;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-3 text-[0.6875rem] font-semibold uppercase tracking-[0.24em] text-muted;
+  }
+
+  .eyebrow::before {
+    content: '';
+    width: 1.75rem;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.45;
+  }
+
+  /* Вариант eyebrow/лида для тёмных секций */
+  .on-dark .eyebrow {
+    color: rgb(var(--canvas) / 0.5);
+  }
+
+  .on-dark .lead {
+    color: rgb(var(--canvas) / 0.72);
+  }
+
+  .on-dark .h2 {
+    color: rgb(var(--canvas));
+  }
+
+  .lead {
+    @apply text-lead text-ink-soft;
+  }
+
+  .hairline {
+    border-color: rgb(var(--ink) / 0.08);
+  }
+
+  .field {
+    @apply w-full rounded-2xl border border-ink/10 bg-surface/80 px-4 py-3.5 text-[0.9375rem] text-ink shadow-[inset_0_1px_0_rgb(255_255_255/0.6)] outline-none transition duration-200 placeholder:text-muted/70;
+  }
+
+  .field:hover {
+    @apply border-ink/20;
+  }
+
+  .field:focus {
+    @apply border-forest/50 bg-surface;
+    box-shadow: 0 0 0 4px rgb(var(--mint) / 0.28);
+  }
+
+  .field[aria-invalid='true'] {
+    border-color: rgb(var(--danger) / 0.55);
+    box-shadow: 0 0 0 4px rgb(var(--danger) / 0.08);
+  }
+
+  .link-underline {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: color 0.2s ease;
+  }
+
+  .link-underline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.2rem;
+    height: 1px;
+    transform: scaleX(0);
+    transform-origin: right;
+    background: currentColor;
+    transition: transform 0.35s var(--ease-premium);
+  }
+
+  .link-underline:hover::after,
+  .link-underline:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .grain {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  .grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.055;
+    mix-blend-mode: overlay;
+    border-radius: inherit;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Зерно не должно перекрывать контент секции */
+  .grain > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  .arch {
+    border-radius: 999px 999px 2rem 2rem;
+  }
+
+  .grid-lines {
+    background-image:
+      linear-gradient(to right, rgb(var(--ink) / 0.055) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(var(--ink) / 0.055) 1px, transparent 1px);
+    background-size: 4.5rem 4.5rem;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .mask-fade-b {
+    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
