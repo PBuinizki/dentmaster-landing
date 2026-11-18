@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import type { Clinic } from '@/data/types';
 import { ButtonLink } from '@/components/ui/Button';
 import { Icon } from '@/components/ui/Icon';
@@ -132,7 +133,7 @@ export default function Hero({ clinic }: HeroProps) {
         {/* Визуал: мягкая арка + плашки-факты внутри, без обрезки контента */}
         <div className="relative mx-auto w-full min-w-0 max-w-[30rem] lg:max-w-none">
           <div className="relative aspect-[4/5] overflow-hidden rounded-[1.5rem_1.5rem_2.5rem_2.5rem] shadow-float sm:rounded-[2rem_2rem_4rem_4rem] lg:rounded-[2.5rem_2.5rem_6rem_6rem]">
-            <img
+            <Image
               src={HERO_IMAGE.src}
               alt="Графическая композиция: контур зуба в глубоком зелёном спектре — визуальный образ клиники ДентМастер"
               width={HERO_IMAGE.width}

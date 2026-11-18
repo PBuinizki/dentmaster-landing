@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import type { Clinic } from '@/data/types';
 import { Icon } from '@/components/ui/Icon';
 import { AnimatedCounter } from '@/components/ui/AnimatedCounter';
@@ -53,7 +54,7 @@ export default function About({ clinic }: AboutProps) {
 
         <div className="relative lg:col-span-5">
           <div className="relative mx-auto aspect-[6/7] w-full max-w-md overflow-hidden rounded-[1.5rem_1.5rem_2.5rem_2.5rem] border border-ink/[0.06] shadow-soft sm:rounded-[2rem_2rem_3.5rem_3.5rem] lg:ml-auto">
-            <img
+            <Image
               src={ABOUT_IMAGE.src}
               alt="Интерьер стоматологической клиники ДентМастер"
               width={ABOUT_IMAGE.width}
