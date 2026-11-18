@@ -2,10 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ------------------------------------------------------------------
-   Design tokens. Single source of truth for the palette.
-   Values are RGB channels so Tailwind opacity modifiers keep working.
-------------------------------------------------------------------- */
+/* Google Fonts (подключаются через <link> в layout.tsx) */
+@import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap&subset=cyrillic,latin');
+
 :root {
   --canvas: 250 249 247; /* тёплый off-white */
   --surface: 255 255 255;
@@ -24,6 +23,10 @@
 
   --header-height: 5rem;
   --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Шрифты — fallback на system-ui */
+  --font-display: 'Manrope', var(--font-sans);
+  --font-sans: 'Golos Text', system-ui, -apple-system, sans-serif;
 }
 
 @layer base {

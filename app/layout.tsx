@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from 'next';
-import { Golos_Text, Manrope } from 'next/font/google';
 
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
@@ -7,25 +6,6 @@ import { clinic } from '@/data/clinic';
 import { buildJsonLd, defaultMetadata } from '@/lib/seo';
 
 import './globals.css';
-
-/**
- * Пара шрифтов: Manrope (display, геометрический гротеск с мягкими формами —
- * читается «дорого» и человечно) + Golos Text (текст, отличная кириллица).
- * Оба подключаются локально через next/font — без FOUT и внешних запросов.
- */
-const manrope = Manrope({
-  subsets: ['cyrillic', 'latin'],
-  display: 'swap',
-  variable: '--font-display',
-  weight: ['400', '500', '600', '700'],
-});
-
-const golos = Golos_Text({
-  subsets: ['cyrillic', 'latin'],
-  display: 'swap',
-  variable: '--font-sans',
-  weight: ['400', '500', '600'],
-});
 
 export const metadata: Metadata = defaultMetadata;
 
@@ -43,8 +23,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const jsonLd = buildJsonLd();
 
   return (
-    <html lang="ru" className={`${manrope.variable} ${golos.variable}`} suppressHydrationWarning>
-      <body>
+    <html lang="ru" suppressHydrationWarning>
+      <head>
+        <link
+          rel="preconnect"
+          href="https://fonts.googleapis.com"
+        />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap&subset=cyrillic,latin"
+          rel="stylesheet"
+        />
+      </head>
+      <body className="font-sans">
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-forest focus:px-5 focus:py-3 focus:text-sm focus:font-medium focus:text-canvas"
