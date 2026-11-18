@@ -4,6 +4,7 @@ const nextConfig = {
   poweredByHeader: false,
   compress: true,
   output: 'export',
+  basePath: '/dentmaster-landing',
   images: {
     unoptimized: true,
   },
