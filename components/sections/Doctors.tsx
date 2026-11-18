@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import type { Clinic, Doctor } from '@/data/types';
 import { Icon } from '@/components/ui/Icon';
 import { RevealItem, RevealOnScroll } from '@/components/ui/RevealOnScroll';
@@ -16,7 +15,7 @@ const SET = { label: 'Врач клиники', tone: 'mint' as const };
 function DoctorAvatar({ doctor }: { doctor: Doctor }) {
   if (doctor.photo) {
     return (
-      <Image
+      <img
         src={doctor.photo.src}
         alt={doctor.photo.alt}
         width={doctor.photo.width}
