@@ -115,7 +115,7 @@ export interface Doctor {
   experienceYears: number;
   education?: string;
   tags: string[];
-  image: ImageAsset;
+  image?: ImageAsset;
   /** Реальная фотография врача (обязательна для публикации профиля). */
   photo?: ImageAsset;
   /** true — профиль-заглушка, требует подтверждения клиники. */

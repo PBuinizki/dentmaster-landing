@@ -12,13 +12,13 @@
   --ink: 15 23 42; /* глубокий графит */
   --ink-soft: 51 65 85;
   --muted: 100 116 139;
-  --line: 231 225 216; /* песочный hairline */
-  --sand: 231 225 216;
-  --sand-deep: 209 196 178;
-  --mint: 168 213 186;
-  --mint-soft: 228 241 233;
-  --forest: 26 61 54;
-  --forest-deep: 13 36 32;
+  --line: 224 224 224; /* песочный hairline */
+  --sand: 228 228 228;
+  --sand-deep: 192 192 192;
+  --mint: 160 210 230;
+  --mint-soft: 225 240 248;
+  --forest: 20 50 70;
+  --forest-deep: 10 30 50;
   --amber: 190 148 61;
   --danger: 180 35 24;
 
@@ -270,8 +270,7 @@
   }
 
   .grid-lines {
-    background-image:
-      linear-gradient(to right, rgb(var(--ink) / 0.055) 1px, transparent 1px),
+    background-image: linear-gradient(to right, rgb(var(--ink) / 0.055) 1px, transparent 1px),
       linear-gradient(to bottom, rgb(var(--ink) / 0.055) 1px, transparent 1px);
     background-size: 4.5rem 4.5rem;
   }
