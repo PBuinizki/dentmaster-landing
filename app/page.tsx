@@ -7,7 +7,7 @@ import Doctors from '@/components/sections/Doctors';
 import Advantages from '@/components/sections/Advantages';
 import Reviews from '@/components/sections/Reviews';
 import Contacts from '@/components/sections/Contacts';
-import { getClinic, revalidate as contentRevalidate } from '@/lib/content';
+import { getClinic } from '@/lib/content';
 
 /**
  * SSG: страница рендерится один раз на этапе `next build`
@@ -15,7 +15,6 @@ import { getClinic, revalidate as contentRevalidate } from '@/lib/content';
  * force-static отключает динамические API на уровне роутa.
  */
 export const dynamic = 'force-static';
-export const revalidate = contentRevalidate;
 
 export async function generateMetadata(): Promise<Metadata> {
   const clinic = await getClinic();
