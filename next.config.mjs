@@ -5,6 +5,8 @@ const nextConfig = {
   compress: true,
   output: 'export',
   basePath: '/dentmaster-landing',
+  assetPrefix: '/dentmaster-landing',
+  trailingSlash: true,
   images: {
     unoptimized: true,
   },
